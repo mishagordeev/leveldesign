@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="./images/favicon.ico" type="image/x-icon"> 
     <link rel="stylesheet" href="./styles/style.css">
-    <script src='./scripts/header_buttons_click.js'></script>
-    <script src="./scripts/show_footer.js"></script>
     <script>
         function selectTab (tabs,tab) {
             let _tabs = document.getElementById(tabs).querySelectorAll('p')
@@ -14,138 +12,234 @@
                 _tab.classList.add("deactivated");
             }
             document.getElementById(tab).classList.remove("deactivated")
-            showContent()
-            // let root = document.getElementById('root')
-            // if (game == 'Ceres')  
-            //     root.innerHTML = "Ceres <strong>Всем привет!</strong> Вы прочитали важное сообщение."
-            // if (game == 'Deadshot')
-            //     root.innerHTML = "Deadshot <strong>Всем привет!</strong> Вы прочитали важное сообщение."
+            showContent(`${tabs}_placeholder`,tab)
         }
-
-        function showContent() {
-            let root = document.getElementById("locations2")
-            let header =
-            `<img width="700" src="./images/IMG_GlobalMap_ForlornCavern.png">
-            <p>
-                <b>Mothership</b> – это настольная ролевая игра в жанре научно-фантастического хоррора за авторством Шона Маккоя (Sean McCoy) и издательства Tuesday Knight Games.
-            </p>
-            <p>
-                На сайте ты найдешь всё, что есть по этой игре на русском языке.
-            </p>
-            <p>
-                В разделе <b><a href="creation.html">Правила</a></b> находится перевод правил игры из книги Player's Survival Guide. В разделе  <b><a href="modules.html">Модули</a></b> переводные и авторские приключения для тебя и твоей игровой группы. А в разделе <b><a href="lists.html">Листы</a></b> – самые разные листы, которые могут понадобиться во время игры. <b><a href="additions.html">Дополнения</a></b> помогут разнообразить игровой опыт домашними правилами и интересными материалами. Ну и в разделе <b><a href="video.html">Видео</a></b> ищи записи игр, обзоры и разборы.
-            </p>`
-            root.innerHTML = header
-        }
-    </script>
-</head>
-<body>
-    <header>
-        <p onclick="selectTab('sdf','sdfsd')">МИХАИЛ ГОРДЕЕВ • LEVEL DESIGNER</p>
-        <!-- <div class='logo'>
-            <div style="flex-grow: 1;"></div>
-            <span><a href="..">МИХАИЛ ГОРДЕЕВ • LEVEL DESIGNER</a></span>
-            <div style="flex-grow: 1;"></div>
-        </div>
-        <div style='flex-grow: 1;'></div>
-        <div class="desktop">
-            <div class="menu">
-                <p onclick="showGame('Ceres');">CERES SURVIVAL</p>
-                <p onclick="showGame('Deadshot');">DEADSHOT BRIGATE</p>
-            </div>
-        </div>
-        <div style='flex-grow: 1;'></div>
-        <div onclick='menuButtonClick()' class = 'mobile menu_button'>
-            <img id='menu_button' class='button_image' src='./images/menu.svg'></img>
-            <img id='close_button' class='button_image inactive' src='./images/close.svg'></img>
-        </div> -->
-    </header>
-    <main id="wrapper">
-        <script src='./scripts/menu.js'></script>
-        <article id="root">
-            <div class="placeholder">
-                <h1>ПРОЕКТЫ</h1>
-                <div id="games" class="tabs">
-                    <p onclick="selectTab('games','ceres')" class="tab" id="ceres">CERES SURVIVAL</p>
-                    <p onclick="selectTab('games','deadshot')" class="tab deactivated" id="deadshot">DEADSHOT BRIGATE</button>
+        function showContent(place,content) {
+            let _content = ''
+            const FIELDS = `
+                <img width="700" src="./images/ceres/fields/level.png">
+                <p>
+                    После прохождения первого туториала, где игрок учится управлению персонажем и стрелять, его корабль терпит крушение на Abandoned Fields, заброшенной шахтерской колонии. Цель здесь – научиться добывать базовые ресурсы необходимые для выживания и разобраться в основах крафта.
+                </p>
+                <p>
+                    Локация нелинейна: есть основное задание и несколько дополнительных. На полное прохождение уйдет примерно час. Также игроку демонстрируется один из главных USP проекта: рельеф на уровне и джетпак. 
+                </p>
+                <h2>Ключевые точки</h2>
+                <h3>1. Место крушения</h3>
+                <p>
+                    Игрок начинает отсюда. Его первая задача – собрать примитивные инструменты и оружие. К счастью, вокруг валяется множество обломков, которые вполне подходят. Здесь же игрока встречают мирные роботы, которые помогают ориентироваться на карте, пока в игре нет навигации.
+                </p>
+                <img width="700" src="./images/ceres/fields/1.png">
+                <h3>2. Остов корабля</h3>
+                <p>
+                    Остов корабля – центральная место на уровне. С помощью только что собранного резака игрок распиливает обшивку и получает первые ресурсы для строительства станков. Здесь же игрок встречает и первое сопротивление – враждебных роботов.
+                </p>
+                <img width="700" src="./images/ceres/fields/2.png">
+                <h3>3. Овраг</h3>
+                <p>
+                    Другая отличительная особенность уровня – длинный овраг, который разделяет его на две части. Выступ посередине – шорткат, чтобы перебраться на другую сторону, но для этого требуется джетпак. С противоположной стороны он пересекается обычным прыжком.
+                </p>
+                <img width="700" src="./images/ceres/fields/3.png">
+                <h3>4. Аванпост</h3>
+                <p>
+                    Место, где игрок встречает еще одних обитателей локации – бандитов. Это своеобразная развилка: налево путь ведет к другим лагерям, о чем должна намекнуть импровизированные ворота с патрулирующим охранником. Путь направо ведет к дополнительному контенту, прохождение которого не требуется для завершения основного задания.
+                </p>
+                <img width="700" src="./images/ceres/fields/4.png">
+                <h3>5. Лагеря бандитов</h3>
+                <p>
+                    Чем дальше продвигается игрок, тем врагов становится больше, но для прохождения основной миссии хватит дойти до середины и вернуться через шорткат назад. В последнем лагере бандитов игрока ждет мини-босс – гранатометчик.
+                </p>
+                <div class="centered">
+                    <img style="padding-right: 4px;" width="385" src="./images/ceres/fields/5_1.png">
+                    <img style="padding-right: 4px;" width="385" src="./images/ceres/fields/5_2.png">
+                    <img width="385" src="./images/ceres/fields/5_3.png">
                 </div>
+                <h3>6. Мост</h3>
+                <p>
+                    В ящике рядом с мини-боссом найдется джетпак с небольшим количеством топлива. Его вполне хватит чтобы перебраться через разрушенный мост. Это еще один шорткат.
+                </p>
+                <img width="700" src="./images/ceres/fields/6.png">               
+                <h3>7. Заброшенные бункеры</h3>
+                <p>
+                    Заброшенные бункеры – необязательный для прохождения контент. Чтобы попасть внутрь игроку требуется распилить двери, потратив на это несколько инструментов. Внутри они соединены небольшим сломанным мостом пересечь который можно только на джетпаке. Чтобы избежать ситуации, когда игрок пересек мост на последнее топливо без инструментов изнутри двери открываются с взаимодействия с терминалом.
+                </p>
+                <div class="centered">
+                    <img style="padding-right: 4px;" width="385" src="./images/ceres/fields/7_1.png">
+                    <img style="padding-right: 4px;" width="385" src="./images/ceres/fields/7_2.png">
+                    <img width="385" src="./images/ceres/fields/7_3.png">
+                </div>
+                <h3>8. Рухнувший корабль</h3>
+                <p>
+                    Еще одно место, куда можно попасть с помощью джетпака - рухнувший корабль. Игра позволяет разместить пол под углом чтобы создать еще больших эффект разрушенности. Чтобы попасть внутрь нужно распилить дверь как в бункерах. Если у игрока не найдется подходящего количества инструментов ему придется вернуться и потратить топливо джетпака.
+                </p>
+                <img width="700" src="./images/ceres/fields/8.png">
+            `
+            const CAVERN = `   
+                <img width="700" src="./images/ceres/cavern/level.png">         
+                <p>
+                    Forlorn Cavern – законсервированная подземная лаборатория корпорации. Игрок находит здесь брошенных на произвол судьбы инженеров, сражается с безумными рабочими и знакомится с главным ученым. Эта локация также подчеркивает основную тему игры многоуровневость и раскрывает тему выживания. 
+                </p>
+                <h2>Ключевые точки</h2>
+                <h3>1. Лагерь у входа</h3>
+                <p>
+                    На входе в локацию игрока встречают инженеры, они закрыли дверь, чтобы отгородиться безумных рабочих. Игрок должен выполнить несколько их заданий, чтобы пойти дальше. 
+                </p>
+                <img width="700" src="./images/ceres/cavern/1.jpg">
+                <h3>2. Два состояния</h3>
+                <p>
+                    Лаборатория не была достроена до конца, на это указывают стены из скальной породы, которые связывают комнаты.
+                </p>
+                <img width="700" src="./images/ceres/cavern/2.jpg">
+                <h3>3. Силовое ядро</h3>
+                <p>
+                    Очевидный лэндмарк локации – силовое ядро обнесенное платформами.
+                </p>
+                <img width="700" src="./images/ceres/cavern/3.jpg">
+                <h3>4. Переход в тоннеле</h3>
+                <p>
+                    Один из вертикальных подъемов локации сделан как длинный технический тоннель.
+                </p>
+                <img width="700" src="./images/ceres/cavern/4.jpg">
+                <h3>5. Пропасть</h3>
+                <p>
+                    Платформа над черным пустым пространством создает дополнительную иллюзию глубины локации.
+                </p>
+                <img width="700" src="./images/ceres/cavern/5.jpg">
+                <h3>6. Выход через вентиляцию</h3>
+                <p>
+                    Чтобы постоянно не проходить локацию целиком, в конце предусмотрен другой выход через вентиляцию. 
+                </p>
+                <img width="700" src="./images/ceres/cavern/6.jpg">
+                <h3>7. Движущаяся платформа</h3>
+                <p>
+                    Необходимо пройти локацию одним путем, чтобы вернуться другим через движущуюся платформу, и в дальнейшем использовать этот путь. 
+                </p>
+                <img width="700" src="./images/ceres/cavern/7.jpg">
+                
+            `
+            const SUBURB = ` 
+                <div class="centered">
+                    <img width="350" src="./images/deadshot/suburb/blockout.png">
+                    <img width="350" src="./images/deadshot/suburb/level.png">
+                </div>    
+                <p>
+                    На локации Suburb Crossroads три задания: обезвредить мины, сопроводить тележку и уничтожить мини-босса. Необходимо было сделать так, чтобы занять меньше пространства и максимально переиспользовать контент.
+                </p>
+                <h2>Ключевые особенности</h2> 
+                <h3>1. Разделение пространства</h3>
+                <p>
+                    Машины на дороге позволяют разделить большое пространство на несколько закрытых зон.
+                </p>
+                <img width="700" src="./images/deadshot/suburb/1.png">    
+                <h3>2. Визуальные ориентиры</h3>
+                <p>
+                    Ворота подчеркивают границу между заданиями и задают направление к этой границе.
+                </p>
+                <img width="700" src="./images/deadshot/suburb/2.png">  
+                <h3>3. Возврат в начало</h3>
+                <p>
+                    Железная дорога поворачивает, чтобы можно было использовать обратную сторону зданий и другие объекты еще раз.
+                </p>
+                <img width="700" src="./images/deadshot/suburb/3.png">             
+            `
+            const SWAMP = ` 
+                <div class="centered">
+                    <img width="350" src="./images/deadshot/swamp/blockout.png">
+                    <img width="350" src="./images/deadshot/swamp/level.png">
+                </div>    
+                <p>
+                    На локации Swamp Train Station три задания: уничтожить врагов, обезвредить мины и уничтожить мини-босса. После тестирования блокинга потребовалось уменьшить размеры локации и сделать прохождение первого задания более линейным.
+                </p>
+                <h2>Ключевые особенности</h2> 
+                <h3>1. Направляющие объекты</h3>
+                <p>
+                    На болотных локациях не всегда можно сделать явную дорогу для игроков, поэтому используются яркие объекты направленные в нужную сторону. 
+                </p>
+                <img width="700" src="./images/deadshot/swamp/1.png">    
+                <h3>2. Симметрия</h3>
+                <p>
+                    Благодаря симметрии игроки интуитивно понимают, где находятся ключевые точки уровня, и могут легко коммуницировать о том, куда именно нужно двигаться.
+                </p>
+                <img width="700" src="./images/deadshot/swamp/2.png">  
+                <h3>3. Цветовые ориентиры</h3>
+                <p>
+                    При скудном окружении объекты контрастных цветов позволяют лучше ориентироваться в пространстве локации.
+                </p>
+                <img width="700" src="./images/deadshot/swamp/3.png">           
+            `
+            const CERES = `
                 <img width="700" src="./images/ceres/baner.webp">
                 <p>
                     <b>Ceres Survival</b> – это мобильный survival в космическом сеттинге с глубоким нарративом и визуально разнообразными локациями. Игрок посещает уникальные астероиды, уничтожает врагов и добывает ресурсы для развития корабля.
-                    
                 </p> 
                 <h1>Локации</h1>           
                 <div id="locations" class="tabs">
                     <p onclick="selectTab('locations','fields')" class="tab" id="fields">Abandoned Fields</p>
                     <p onclick="selectTab('locations','cavern')" class="tab deactivated" id="cavern">Forlorn Cavern</p>
                 </div>
-                <div id="locations2">
-                    <img width="700" src="./images/abandoned_fields/image.png">
-                    <p>
-                        После прохождения первого туториала, где игрок учится управлению персонажем и стрелять, его корабль терпит крушение на Abandoned Fields, заброшенной шахтерской колонии. Цель здесь – научиться добывать базовые ресурсы необходимые для выживания и разобраться в основах крафта.
-                    </p>
-                    <p>
-                        Локация нелинейна: есть основное задание и несколько дополнительных. На полное прохождение уйдет примерно час. Также игроку демонстрируется один из главных USP проекта: рельеф на уровне и джетпак. 
-                    </p>
-                    <h2>Ключевые точки</h2> 
-                    <h3>1. Место крушения</h3>
-                        <p>
-                            Игрок начинает отсюда. Его первая задача – собрать примитивные инструменты и оружие. К счастью, вокруг валяется множество обломков, которые вполне подходят. Здесь же игрока встречают мирные роботы, которые помогают ориентироваться на карте, пока в игре нет навигации.
-                        </p>
-                    <img width="700" src="./images/abandoned_fields/image_1.png">
-                    <h2>2. Остов корабля</h2>
-                    <p>
-                        Остов корабля – центральная место на уровне. С помощью только что собранного резака игрок распиливает обшивку и получает первые ресурсы для строительства станков. Здесь же игрок встречает и первое сопротивление – враждебных роботов.
-                    </p>
-                    <img width="700" src="./images/abandoned_fields/image_2.png">
+                <div id="locations_placeholder">
+                    ${FIELDS}
                 </div>
-            </div>
-            <div class="placeholder">
-                <h2>3. Овраг</h2>
+            `
+            const DEADSHOT = `         
+                <img width="700" src="./images/deadshot/baner.png">
                 <p>
-                    Другая отличительная особенность уровня – длинный овраг, который разделяет его на две части. Выступ посередине – шорткат, с помощью которого можно перебраться на другую сторону, но для этого требуется джетпак. Обратно его можно пересечь обычным прыжком.
-                </p>                
-            </div>
-            <div class="placeholder2">
-                <img style="padding-right: 4px;" width="650" src="./images/abandoned_fields/image_3_1.png">
-                <img style="padding-right: 4px;" width="650" src="./images/abandoned_fields/image_3_2.png">              
-            </div>
-            <div class="placeholder">
-                <h2>4. Аванпост</h2>
-                <p>
-                    Все обновления сайта будут публиковаться в наших соцсетях: <b><a target="_blank" href="https://t.me/mothershiprpgru">Telegram</a></b>, <b><a target="_blank" href="https://vk.com/mothershiprpgru">Vk</a></b> и <b><a target="_blank" href="https://discord.gg/CNmnVHRazJ">Discord</a></b>. 
-                </p>
-                <img width="700" src="./images/abandoned_fields/image_4.png">
-                <h2>5. Лагеря бандитов</h2>
-                <p>
-                    Заброшенные бункеры – необязательный для прохождения контент. Чтобы попасть внутрь игроку требуется распилить двери, потратив на это несколько инструментов.
-                </p>
-                <img width="600" src="./images/test.png">
-                <h2>6. Заброшенные бункеры</h2>
-                <p>
-                    Заброшенные бункеры – необязательный для прохождения контент. Чтобы попасть внутрь игроку требуется распилить двери, потратив на это несколько инструментов.
-                </p>
-            </div>
-            <div class="placeholder2">
-                <img style="padding-right: 4px;" width="385" src="./images/abandoned_fields/image_8_1.png">
-                <img style="padding-right: 4px;" width="385" src="./images/abandoned_fields/image_8_2.png">
-                <img style="padding-right: 4px;" width="385" src="./images/abandoned_fields/image_8_3.png">
-            </div>
-            <div class="placeholder">
-                <h2>7. Рухнувший корабль</h2>
-                <p>
-                    Еще одно место, куда можно попасть с помощью джетпака - рухнувший корабль. Игра позволяет разместить пол под углом чтобы создать еще больших эффект разрушенности. Чтобы попасть внутрь нужно распилить дверь как в бункерах. Если у игрока не найдется подходящего количества инструментов ему придется вернуться и потратить топливо джетпака.
-                </p>
-                <img width="600" src="./images/abandoned_fields/image_7.png">
-                <p>
-                    Если здесь чего-то не хватает или ты сделал для Mothership что-то совершенно новое, смело пиши <b><a target="_blank" href="https://t.me/mishagordeev">Михаилу Гордееву</a></b> или <b><a target="_blank" href="https://vk.com/wtihe">Антону «Ottar» Прохорову</a></b>. Добавим!
-                </p>
-                <h3>Описание 2</h3>
-                <p>
-                    Ну всё, удачи на бескрайних просторах космоса, и не забывай смотреть по сторонам... 
-                </p>
-                <p style="text-align: center;">•</p>
-            </div>
+                    <b>Deadshot Brigade</b> – это кооперативный top-down шутер, в котором игроки сражаются против зомби, выполняя различные задания.
+                </p> 
+                <h1>Локации</h1>           
+                <div id="locations" class="tabs">
+                    <p onclick="selectTab('locations','suburb')" class="tab" id="suburb">Suburb Crossroads</p>
+                    <p onclick="selectTab('locations','swamp')" class="tab deactivated" id="swamp">Swamp Train Station</p>
+                </div>
+                <div id="locations_placeholder">
+                    ${SUBURB}
+                </div>    
+            `
+            switch(content) {
+                case 'ceres':
+                    _content = CERES
+                    break
+
+                case 'deadshot':
+                    _content = DEADSHOT
+                    break
+
+                case 'fields':
+                    _content = FIELDS
+                    break
+
+                case 'cavern':
+                    _content = CAVERN
+                    break
+
+                case 'suburb':
+                    _content = SUBURB
+                    break
+                case 'swamp':
+                    _content = SWAMP
+                    break
+            }
+            let _place = document.getElementById(place)
+            _place.innerHTML = _content
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <p>МИХАИЛ ГОРДЕЕВ • LEVEL DESIGNER</p>
+    </header>
+    <main>
+        <article>
+                <h1>ПРОЕКТЫ</h1>
+                <div id="games" class="tabs">
+                    <p onclick="selectTab('games','ceres')" class="tab" id="ceres">CERES SURVIVAL</p>
+                    <p onclick="selectTab('games','deadshot')" class="tab deactivated" id="deadshot">DEADSHOT BRIGATE</button>
+                </div>
+                <div id="games_placeholder">
+                <script>showContent('games_placeholder','ceres')</script>
+                </div>
+                <br>
+                <p style="text-align: center;">•</p>   
         </article>
     </main>
 </body>
