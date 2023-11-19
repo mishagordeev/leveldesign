@@ -195,6 +195,67 @@
                     ${SUBURB}
                 </div>    
             `
+            ARK = `  
+                <p>
+                    The Ark – дуэльная карта для Quake III Arena, вдохновленная скандинавской архитектурой и кораблестроением.
+                </p>
+                <p>
+                    <a href="https://github.com/mishagordeev/ark">Репозиторий с проектом на GitHub</a>
+                    <br>
+                    <a href="https://www.youtube.com/watch?v=AV-Vz_dpbeQ">Видео прохождения с комментариями на Youtube</a>
+                </p>
+                <h2>Общий план</h2> 
+                <img width="700" src="./images/my/ark/level.png">
+                <h2>Зоны</h2> 
+                <h3>Вход</h3>
+                <img width="700" src="./images/my/ark/entrance.png">
+                <p>
+                    Вытянутая площадка с обрывом с одной стороны и входом в атриум с другой. По краям находятся переходы на нижний и верхний уровень. Шотган.
+                </p>
+                <h3>Атриум</h3>
+                <img width="700" src="./images/my/ark/atrium.png">
+                <p>
+                    Большое прямоугольное пространство с колоннами по длинным сторонам. Слева выход на балкон, справа – подъем на верхний уровень. Зеленая броня. Дальше лестница в святилище.
+                </p>
+                <h3>Балкон</h3>
+                <img width="700" src="./images/my/ark/balcony.png">
+                <p>
+                    Открытая площадка с косыми колоннами. Два в отверстия на нижний уровень. Под одним из них джампад.
+                </p>
+                <h3>Святилище</h3>
+                <img width="700" src="./images/my/ark/sanctuary.png">
+                <p>
+                    Небольшая комната с ракетницей в центре. Налево узкий проход в левую башню, напротив него – проем в правую. 
+                </p>
+                <h3>Левая башня</h3>
+                <img width="700" src="./images/my/ark/left_tower.png">
+                <p>
+                    Квадратная комната с высоким потолком. Узкая лестница на нижний уровень. Желтая броня и гранатомет.
+                </p>
+                <h3>Правая башня</h3>
+                <img width="700" src="./images/my/ark/right_tower.png">
+                <p>
+                    Прямоугольная комната с пьедесталом в одном углу. На пьедестале рельса и средняя аптечка. Широкий проход ведет на верхний уровень. 
+                </p>
+                <h3>Верхний уровень</h3>
+                <img width="700" src="./images/my/ark/high.png">
+                <p>
+                    Длинное открытое пространство со спуском в атриум и проемом, который ведет ко входу. Альтернативный проход в атриум через дыру в стене. Лайтинган и желтая броня.
+                </p>
+                <h3>Нижний уровень</h3>
+                <img width="700" src="./images/my/ark/low.png">
+                <p>
+                    Темное пространство с колоннами. Джампады на балкон, верхний уровень и вход. Мега здоровье и плазмаган. 
+                </p>          
+            `
+            const MY = `        
+                <div id="locations" class="tabs">
+                    <p onclick="selectTab('locations','ark')" class="tab" id="fields">The Ark</p>
+                </div>
+                <div id="locations_placeholder">
+                    ${ARK}
+                </div>    
+            `                
             switch(content) {
                 case 'ceres':
                     _content = CERES
@@ -215,9 +276,19 @@
                 case 'suburb':
                     _content = SUBURB
                     break
+                
                 case 'swamp':
                     _content = SWAMP
                     break
+
+                case 'my':
+                    _content = MY
+                    break
+
+                case 'ark':
+                    _content = ARK
+                    break
+
             }
             let _place = document.getElementById(place)
             _place.innerHTML = _content
@@ -234,6 +305,7 @@
                 <div id="games" class="tabs">
                     <p onclick="selectTab('games','ceres')" class="tab" id="ceres">CERES SURVIVAL</p>
                     <p onclick="selectTab('games','deadshot')" class="tab deactivated" id="deadshot">DEADSHOT BRIGATE</button>
+                    <p onclick="selectTab('games','my')" class="tab deactivated" id="my">СВОЁ</button>
                 </div>
                 <div id="games_placeholder">
                 <script>showContent('games_placeholder','ceres')</script>
